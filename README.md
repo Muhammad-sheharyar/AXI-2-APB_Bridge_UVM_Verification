@@ -1,4 +1,5 @@
-``bash
+bash
+```
 axi2apb_uvm_verification/
 ├── rtl/
 │   ├── axi2apb.sv
