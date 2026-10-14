@@ -65,3 +65,22 @@ axi2apb_uvm_verification/
 ├── README.md
 └── .gitignore
 ``
+
+cd sim
+
+# 1. Compile
+make compile
+
+# 2. Run one test
+make sim TEST=reset_test
+make sim TEST=axi_write_ready_test
+make sim TEST=axi_read_wait_test
+
+# 3. Run full directed + random regression
+make regression
+
+# 4. GUI (for waveform debug)
+make sim_gui TEST=axi_write_ready_test
+
+# 5. Clean
+make clean
