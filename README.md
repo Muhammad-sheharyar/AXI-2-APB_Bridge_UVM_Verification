@@ -1,3 +1,4 @@
+``bash
 axi2apb_uvm_verification/
 ├── rtl/
 │   ├── axi2apb.sv
@@ -62,3 +63,4 @@ axi2apb_uvm_verification/
 ├── results/
 ├── README.md
 └── .gitignore
+``
