@@ -54,10 +54,18 @@ axi2apb_uvm_verification/
 ├── assertions/
 │   └── axi2apb_sva.sv
 ├── coverage/              (coverage class lives in uvm/env — folder kept per spec)
-├── sim/
-│   ├── Makefile
-│   ├── filelist.f
-│   └── out/
+├──sim/
+├── Makefile          ← stays
+├── filelist.f        ← stays
+└── out/              ← everything generated goes here
+|    ├── simv
+|    ├── simv.daidir/
+|    ├── csrc/
+|    ├── ucli.key
+|    ├── vc_hdrs.h
+|    ├── tr_db.log
+|    ├── cov_db/       (coverage databases)
+|   
 ├── scripts/
 ├── docs/
 ├── logs/
