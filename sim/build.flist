@@ -1,0 +1,31 @@
+// include directories
++incdir+../rtl
++incdir+../tb
++incdir+../uvm/axi
++incdir+../uvm/apb
++incdir+../uvm/env
++incdir+../sequences
++incdir+../tests
+
+// include design files
+../rtl/fifo.sv
+../rtl/axi_single_slice.sv
+../rtl/axi_aw_buffer.sv
+../rtl/axi_ar_buffer.sv
+../rtl/axi_w_buffer.sv
+../rtl/axi_r_buffer.sv
+../rtl/axi_b_buffer.sv
+../rtl/axi2apb.sv
+
+// include interfaces
+../tb/axi_if.sv
+../tb/apb_if.sv
+
+// include SVA Assertions
+//../assertions/axi2apb_sva.sv
+
+// include UVM package
+../tb/axi2apb_tb_uvm_pkg.sv
+
+// include tb_top
+../tb/tb_top.sv
