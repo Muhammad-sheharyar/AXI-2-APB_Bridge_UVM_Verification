@@ -2,6 +2,8 @@
 
 The following diagram illustrates the dual-agent UVM environment, showing how the AXI Master Agent drives stimulus into the `axi2apb` DUT, which then translates and communicates with the APB Slave Agent. Both monitors send observed transactions to the Scoreboard for comparison.
 
+bash
+```
 +---------------------------------------------------------------------------------------+
 |                               UVM TESTBENCH ENVIRONMENT                              |
 |                                                                                       |
@@ -59,7 +61,7 @@ The following diagram illustrates the dual-agent UVM environment, showing how th
 |                        +--------------------------------------+                       |
 |                                                                                       |
 +---------------------------------------------------------------------------------------+
-
+```
 ## 📂 Repository Structure
 bash
 ```
