@@ -47,7 +47,7 @@ graph LR
     class DUT dut;
     class AXI_Monitor,APB_Monitor monitor;
     class SCB,COV checker;
-```
+
 bash
 ```
 axi2apb_uvm_verification/
