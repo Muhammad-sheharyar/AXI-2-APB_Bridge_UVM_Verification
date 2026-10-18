@@ -1,53 +1,66 @@
-## 🏗️ UVM Verification Architecture
+##  UVM Verification Architecture
 
 The following diagram illustrates the dual-agent UVM environment, showing how the AXI Master Agent drives stimulus into the `axi2apb` DUT, which then translates and communicates with the APB Slave Agent. Both monitors send observed transactions to the Scoreboard for comparison.
 
-```mermaid
-graph LR
-    %% Define UVM Components
-    subgraph UVM_Testbench [UVM Testbench Environment]
-        direction TB
-        AXI_Agent[AXI Master Agent]
-        APB_Agent[APB Slave Agent]
-        
-        AXI_Agent -->|Drives| AXI_IF[AXI Interface]
-        APB_IF[APB Interface] -->|Drives| APB_Agent
-        
-        AXI_Monitor[AXI Monitor]
-        APB_Monitor[APB Monitor]
-        
-        AXI_IF -.->|Samples| AXI_Monitor
-        APB_IF -.->|Samples| APB_Monitor
-        
-        SCB[Scoreboard]
-        COV[Functional Coverage]
-        
-        AXI_Monitor -.->|TLM Analysis Port| SCB
-        APB_Monitor -.->|TLM Analysis Port| SCB
-        AXI_Monitor -.->|TLM Analysis Port| COV
-        APB_Monitor -.->|TLM Analysis Port| COV
-    end
++---------------------------------------------------------------------------------------+
+|                               UVM TESTBENCH ENVIRONMENT                              |
+|                                                                                       |
+|   +----------------+                                            +-----------------+   |
+|   |   AXI AGENT    |                                            |   APB AGENT     |   |
+|   |  (AXI Master)  |                                            |   (APB Slave)   |   |
+|   |                |                                            |                 |   |
+|   |  [Sequences]   |                                            |  [Sequences]    |   |
+|   |       |        |                                            |       |         |   |
+|   |       v        |                                            |       v         |   |
+|   |  [Sequencer]   |                                            |  [Sequencer]    |   |
+|   |       |        |                                            |       |         |   |
+|   |       v        |                                            |       v         |   |
+|   |  [AXI Driver]  |                                            |  [APB Driver]   |   |
+|   +------+---------+                                            +--------+--------+   |
+|          |                                                               |            |
+|          |                                                               |            |
+|          v (Drives Signals)                             (Drives Signals) v            |
+|   +------+---------+                                            +--------+--------+   |
+|   |  AXI Interface |                                            |  APB Interface  |   |
+|   +------+---------+                                            +--------+--------+   |
+|          |                                                               |            |
++----------|---------------------------------------------------------------|------------+
+           |                                                               |
+           | (AXI4 Signals)                                  (APB Signals) | 
+           v                                                               v
+      +----+---------------------------------------------------------------+----+
+      |                                                                         |
+      |                                axi2apb DUT                              |
+      |                          (Design Under Verification)                    |
+      |                                                                         |
+      +----+---------------------------------------------------------------+----+
+           |                                                               |
+           |                                                               |
++----------|---------------------------------------------------------------|------------+
+|          | (Monitors)                                                    | (Monitors) |
+|          v                                                               v            |
+|   +------+---------+                                            +--------+--------+   |
+|   |  AXI Monitor   |                                            |   APB Monitor   |   |
+|   +------+---------+                                            +--------+--------+   |
+|          |                                                               |            |
+|   (TLM Analysis Port)                                           (TLM Analysis Port)   |
+|          |                                                               |            |
+|          +--------------------------+               +--------------------+            |
+|                                     |               |                                 |
+|                                     v               v                                 |
+|                        +--------------------------------------+                       |
+|                        |              Scoreboard              |                       |
+|                        |  (Compares AXI and APB Transactions) |                       |
+|                        +------------------+-------------------+                       |
+|                                           |                                           |
+|                                           v                                           |
+|                        +--------------------------------------+                       |
+|                        |          Coverage Collector          |                       |
+|                        +--------------------------------------+                       |
+|                                                                                       |
++---------------------------------------------------------------------------------------+
 
-    %% Define DUT
-    subgraph RTL [Design Under Verification]
-        DUT[axi2apb Bridge]
-    end
-
-    %% Connections between TB and DUT
-    AXI_IF <==>|AXI4 Signals| DUT
-    DUT <==>|APB Signals| APB_IF
-
-    %% Styling
-    classDef agent fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef dut fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef monitor fill:#dfd,stroke:#333,stroke-width:2px;
-    classDef checker fill:#fdd,stroke:#333,stroke-width:2px;
-    
-    class AXI_Agent,APB_Agent agent;
-    class DUT dut;
-    class AXI_Monitor,APB_Monitor monitor;
-    class SCB,COV checker;
-
+## 📂 Repository Structure
 bash
 ```
 axi2apb_uvm_verification/
