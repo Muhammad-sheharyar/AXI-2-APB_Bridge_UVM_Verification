@@ -1,3 +1,4 @@
+
 bash
 ```
 axi2apb_uvm_verification/
@@ -10,11 +11,14 @@ axi2apb_uvm_verification/
 │   ├── axi_b_buffer.sv
 │   ├── axi_single_slice.sv
 │   ├── fifo.sv
-│   └── reference/         (axi_slice*, axi2apb_wrap, axi2apb_64_32 — NOT compiled)
+│   └── reference/         (axi_slice*, axi2apb_wrap, axi2apb_64_32)
+|
 ├── tb/
 │   ├── axi_if.sv
 │   ├── apb_if.sv
+|   ├── axi2apb_tb_uvm_pkg.sv
 │   └── tb_top.sv
+|
 ├── uvm/
 │   ├── axi/
 │   │   ├── axi_seq_item.sv
@@ -32,9 +36,14 @@ axi2apb_uvm_verification/
 │       ├── axi2apb_scoreboard.sv
 │       ├── axi2apb_coverage.sv
 │       └── axi2apb_env.sv
+|
 ├── sequences/
 │   ├── axi_write_seq.sv
-│   └── axi_read_seq.sv
+|   ├── axi_read_seq.sv
+|   ├── axi_random_seq.sv
+|   ├── axi2apb_vseq.sv
+│   └── axi_single_item_seq.sv
+|
 ├── tests/
 │   ├── axi2apb_base_test.sv
 │   ├── reset_test.sv
@@ -50,14 +59,18 @@ axi2apb_uvm_verification/
 │   ├── mixed_traffic_test.sv
 │   ├── id_user_test.sv
 │   ├── pslverr_test.sv
+|   ├── coverage_closure_test.sv
+|   ├── rand_axi_test.sv
+|   ├── rand_mixed_test.sv
 │   └── rand_test.sv
+|
 ├── assertions/
-│   └── axi2apb_sva.sv
-├── coverage/              (coverage class lives in uvm/env — folder kept per spec)
+│   └── (Not performed)
+|
 ├──sim/
-├── Makefile          ← stays
-├── filelist.f        ← stays
-└── out/              ← everything generated goes here
+|   ├── Makefile          ← stays
+|   ├── build.flist       ← stays
+|   └── out/              ← everything generated goes here
 |    ├── simv
 |    ├── simv.daidir/
 |    ├── csrc/
@@ -67,11 +80,28 @@ axi2apb_uvm_verification/
 |    ├── cov_db/       (coverage databases)
 |   
 ├── scripts/
+|     ├── parse_log.py
+|
 ├── docs/
+|    ├── AXI2APB_UVM_Final_Project_Specification
+|    ├── Verification_Plan
+|    ├── AXI2APB_Bridge_UVM_Verification_PPT
+|
 ├── logs/
+|    ├── contain log file of all tests
+|
 ├── results/
+|     ├── regression_summary
+|     ├── coverage_summary
+|
 ├── README.md
 └── .gitignore
+      ├── simv
+      ├── simv.daidir/
+      ├── csrc/
+      ├── ucli.key
+      ├── vc_hdrs.h
+      ├── tr_db.log
 ``
 
 cd sim
@@ -90,5 +120,5 @@ make regression
 # 4. GUI (for waveform debug)
 make sim_gui TEST=axi_write_ready_test
 
-# 5. Clean
-make clean
+# 5. All Clean
+make allclean
